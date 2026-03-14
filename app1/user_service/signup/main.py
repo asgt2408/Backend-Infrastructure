@@ -1,4 +1,4 @@
-from fastapi import FastAPI,Depends,HTTPException
+from fastapi import Depends,HTTPException,APIRouter
 from pydantic import BaseModel
 from user_service.database import engine,SessionLocal
 from user_service.models import Base,User
@@ -16,12 +16,12 @@ def get_db():
 	finally:
 		db.close()
 
+router = APIRouter()
 
-app = FastAPI()
 
 Base.metadata.create_all(bind=engine)
 
-@app.get("/")
+@router.get("/")
 def home():
 	return{
 	"Signup for users working"
@@ -32,9 +32,10 @@ class Usercreate(BaseModel):
 	email : str
 	password : str
 
-@app.post("/signup")
+@router.post("/signup")
 def signup(user:Usercreate, db: Session = Depends(get_db)):
-		hashed_password = pwd_context.hash(user.password)
+		password_bytes = user.password.encode("utf-8")[:72]
+		hashed_password = pwd_context.hash(password_bytes.decode("utf-8", "ignore"))
 
 		new_user = User(
 		username = user.username,

@@ -1,11 +1,11 @@
-from fastapi import FastAPI,Depends,HTTPException
+from fastapi import APIRouter,Depends,HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from user_service.models import User,Base
 from user_service.database import engine,SessionLocal
 from sqlalchemy.orm import Session
 from jose import jwt
 
-app = FastAPI()
+router = APIRouter()
 
 SECRET_KEY="mysectetkey"
 ALGORITHM="HS256"
@@ -17,9 +17,9 @@ def get_db():
 	finally:
 		db.close()
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="user_service/login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
-@app.get("/profile")
+@router.get("/profile")
 def get_profile(token : str = Depends(oauth2_scheme), db : Session = Depends(get_db)):
 
 	payload = jwt.decode(token,SECRET_KEY,algorithms=["HS256"])
