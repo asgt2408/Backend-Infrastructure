@@ -12,7 +12,7 @@ The system is designed to simulate how **modern backend systems operate in produ
 
 Currently, the **User Service module** has been implemented, which handles:
 
-- User login  
+- User SignUp & login  
 - JWT token generation  
 - Protected API access  
 - Profile retrieval for authenticated users
