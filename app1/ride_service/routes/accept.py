@@ -18,27 +18,22 @@ def get_db():
 @router.get("/accept")
 def extract(ride_id: int, driver_id:int,db: Session = Depends(get_db)):
 
-	ride = db.query(Ride).filter(Ride.id==ride_id).first()
-
-	if not ride:
-		raise HTTPException(status_code=404, detail="Ride not found")
-
 	driver = db.query(Driver).filter(Driver.id==driver_id).first()
 
 	if not driver:
-		raise HTTPException(status_code=404,detail="Driver not found")
-
-	if ride.status!='REQUESTED':
-		raise HTTPException(status_code=404,detail="Ride already taken")
-
+                raise HTTPException(status_code=404,detail="Driver not found")
 
 
 	if driver.is_online!=1:
-		raise HTTPException(status_code=404,detail="Driver not available")
+                raise HTTPException(status_code=400,detail="Driver not available")
+
+
+	updated = db.query(Ride).filter(Ride.id==ride_id , Ride.status=="REQUESTED").update({"status":"ACCEPTED","driver_id":driver_id})
+
+	if updated == 0:
+        	raise HTTPException(status_code=400, detail="Ride already taken")
 
 	driver.is_online = 0
-	ride.driver_id = driver_id
-	ride.status = 'Accepted'
 
 	db.commit()
 
