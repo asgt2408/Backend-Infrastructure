@@ -21,3 +21,7 @@ class Ride(Base):
 
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow) 
+
+    payment_method = Column(String(20))
+    payment_status = Column(String(20))
+    fare = Column(Float)

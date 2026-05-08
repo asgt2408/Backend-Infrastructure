@@ -34,8 +34,14 @@ class Usercreate(BaseModel):
 
 @router.post("/signup")
 def signup(user:Usercreate, db: Session = Depends(get_db)):
-		password_bytes = user.password.encode("utf-8")[:72]
-		hashed_password = pwd_context.hash(password_bytes.decode("utf-8", "ignore"))
+		print("Password Length:", len(user.password.encode("utf-8")))
+
+		if len(user.password.encode("utf-8")) > 72:
+			raise HTTPException(
+				status_code=404,
+				detail="Password too long"
+			)
+		hashed_password = pwd_context.hash(user.password)
 
 		new_user = User(
 		username = user.username,
