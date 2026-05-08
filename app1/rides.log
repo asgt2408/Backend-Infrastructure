@@ -1,1 +1,20 @@
 2026-05-03 23:35:40,284 - INFO - Ride Completed, | ride_id=1, driver_id=2
+2026-05-08 10:18:35,861 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/home/ashu/UBER/app1/venv/lib/python3.12/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2026-05-08 10:24:19,236 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/home/ashu/UBER/app1/venv/lib/python3.12/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2026-05-08 10:26:15,988 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/home/ashu/UBER/app1/venv/lib/python3.12/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2026-05-08 10:40:42,808 - INFO - Ride Completed, | ride_id=1, driver_id=3
