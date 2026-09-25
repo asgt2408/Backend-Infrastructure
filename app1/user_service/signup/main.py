@@ -1,7 +1,7 @@
 from fastapi import Depends,HTTPException,APIRouter
 from pydantic import BaseModel
-from user_service.database import engine,SessionLocal
-from user_service.models import Base,User
+from database import engine,SessionLocal
+from models import Base,User
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from passlib.context import CryptContext
@@ -21,18 +21,18 @@ router = APIRouter()
 
 Base.metadata.create_all(bind=engine)
 
-@router.get("/")
-def home():
-	return{
-	"Signup for users working"
-}
+# @router.get("/")
+# def home():
+# 	return {
+# 		"message": "Signup for users working"
+# 	}
 
 class Usercreate(BaseModel):
 	username: str
 	email : str
 	password : str
 
-@router.post("/signup")
+@router.post("/")
 def signup(user:Usercreate, db: Session = Depends(get_db)):
 		print("Password Length:", len(user.password.encode("utf-8")))
 

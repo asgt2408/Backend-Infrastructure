@@ -18,3 +18,21 @@ Traceback (most recent call last):
               ^^^^^^^^^^^^^^^^^
 AttributeError: module 'bcrypt' has no attribute '__about__'
 2026-05-08 10:40:42,808 - INFO - Ride Completed, | ride_id=1, driver_id=3
+2026-05-24 16:11:23,435 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/Users/ashugupta/Backend-Infrastructure/app1/myenv/lib/python3.14/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2026-05-24 16:14:42,046 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/Users/ashugupta/Backend-Infrastructure/app1/myenv/lib/python3.14/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2026-05-24 16:19:47,064 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/Users/ashugupta/Backend-Infrastructure/app1/myenv/lib/python3.14/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'

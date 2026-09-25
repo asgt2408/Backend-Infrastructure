@@ -1,8 +1,8 @@
 from fastapi import APIRouter,Depends
 from pydantic import BaseModel
-from user_service.models import User,Base
+from models import User,Base
 from sqlalchemy.orm import Session
-from user_service.database import engine,SessionLocal
+from database import engine,SessionLocal
 from passlib.context import CryptContext
 from jose import jwt
 from fastapi.security import OAuth2PasswordRequestForm
@@ -32,7 +32,7 @@ def token(data : dict):
 	token = jwt.encode(data,SECRET_KEY,algorithm = ALGORITHM)
 	return token
 
-@router.post("/login")
+@router.post("/")
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
 
     check_user = db.query(User).filter(User.username == form_data.username).first()
