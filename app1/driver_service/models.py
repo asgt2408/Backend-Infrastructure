@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, Boolean, Float, DateTime
-from driver_service.database import Base
+from database import Base
 from datetime import datetime
 
 

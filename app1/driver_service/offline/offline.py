@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from driver_service.database import SessionLocal
-from driver_service.models import Base, Driver
+from database import SessionLocal
+from models import Base, Driver
 from pydantic import BaseModel
 
 router = APIRouter()
@@ -18,7 +18,7 @@ class Driveroffline(BaseModel):
 	driver_id : int
 
 
-@router.post("/go_offline")
+@router.post("/")
 def offline(data: Driveroffline, db: Session = Depends(get_db)):
 	driver = db.query(Driver).filter(Driver.id==data.driver_id).first()
 

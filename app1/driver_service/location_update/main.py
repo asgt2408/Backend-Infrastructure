@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
-from driver_service.database import SessionLocal
-from driver_service.models import Driver
+from database import SessionLocal
+from models import Driver
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from datetime import datetime
@@ -21,7 +21,7 @@ class LocationUpdate(BaseModel):
 	lat : float
 	lng : float
 
-@router.post("/loc_update")
+@router.post("/")
 def l(loc : LocationUpdate, db: Session = Depends(get_db)):
 
 	driver = db.query(Driver).filter(Driver.id == loc.driver_id).first()

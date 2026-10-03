@@ -3,8 +3,8 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 
-from driver_service.database import SessionLocal, engine
-from driver_service.models import Base, Driver
+from database import SessionLocal, engine
+from models import Base, Driver
 
 router = APIRouter()
 
@@ -26,7 +26,7 @@ class DriverRegister(BaseModel):
     vehicle_number: str
 
 
-@router.post("/register")
+@router.post("/")
 def register(driver: DriverRegister, db: Session = Depends(get_db)):
 
     # Check if driver already exists
