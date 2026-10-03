@@ -19,7 +19,7 @@ def get_db():
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
-@router.get("/profile")
+@router.get("/")
 def get_profile(token : str = Depends(oauth2_scheme), db : Session = Depends(get_db)):
 
 	payload = jwt.decode(token,SECRET_KEY,algorithms=["HS256"])
