@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException, Depends
-from ride_service.database import SessionLocal
-from ride_service.models import Ride, Base
+from database import SessionLocal
+from models import Ride, Base
 from sqlalchemy.orm import Session
-from driver_service.models import Driver
+#from driver_service.models import Driver
 
 router = APIRouter()
 

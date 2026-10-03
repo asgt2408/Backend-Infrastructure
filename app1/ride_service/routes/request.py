@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
-from  ride_service.database import SessionLocal,engine
-from ride_service.models import Ride,Base
+from  database import SessionLocal,engine
+from models import Ride,Base
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 

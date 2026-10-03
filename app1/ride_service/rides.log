@@ -1,0 +1,4 @@
+2026-10-04 00:55:54,764 - INFO - HTTP Request: GET http://localhost:8002/status/10 "HTTP/1.1 404 Not Found"
+2026-10-04 00:57:41,836 - INFO - HTTP Request: GET http://localhost:8002/status/10 "HTTP/1.1 404 Not Found"
+2026-10-04 00:59:01,251 - INFO - HTTP Request: GET http://localhost:8002/status/2 "HTTP/1.1 200 OK"
+2026-10-04 00:59:01,268 - INFO - HTTP Request: PUT http://localhost:8002/accept_offline/2 "HTTP/1.1 200 OK"

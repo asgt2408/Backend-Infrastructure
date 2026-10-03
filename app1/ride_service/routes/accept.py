@@ -1,45 +1,53 @@
 from fastapi import APIRouter, Depends, HTTPException
-from ride_service.models import Base, Ride
 from sqlalchemy.orm import Session
-from driver_service.models import Base, Driver
-from ride_service.database import SessionLocal
+import httpx
+from database import SessionLocal
+from models import Base, Ride
+
 router = APIRouter()
 
+
 def get_db():
-	db = SessionLocal()
+    db = SessionLocal()
 
-	try:
-		yield db
-	finally:
-		db.close()
-
-
+    try:
+        yield db
+    finally:
+        db.close()
 
 @router.get("/accept")
-def extract(ride_id: int, driver_id:int,db: Session = Depends(get_db)):
+def extract(ride_id: int, driver_id: int, db: Session = Depends(get_db)):
+    response = httpx.get(f"http://localhost:8002/status/{driver_id}")
 
-	driver = db.query(Driver).filter(Driver.id==driver_id).first()
+	
+    print(response.status_code)
+    print(response.json())
 
-	if not driver:
-                raise HTTPException(status_code=404,detail="Driver not found")
+    if response.status_code == 400:
+        raise HTTPException(status_code=400, detail="Driver not available")
 
+    if response.status_code != 200:
+        raise HTTPException(status_code=400, detail="Driver service error")
 
-	if driver.is_online!=1:
-                raise HTTPException(status_code=400,detail="Driver not available")
+    driver = response.json()
 
+    if driver["is_online"] != 1:
+        raise HTTPException(status_code=400, detail="Driver not available")
 
-	updated = db.query(Ride).filter(Ride.id==ride_id , Ride.status=="REQUESTED").update({"status":"ACCEPTED","driver_id":driver_id})
+    updated = db.query(Ride).filter(Ride.id == ride_id, Ride.status == "REQUESTED").update(
+        {"status": "ACCEPTED", "driver_id": driver_id}
+    )
 
-	if updated == 0:
-        	raise HTTPException(status_code=400, detail="Ride already taken")
+    if updated == 0:
+        raise HTTPException(status_code=400, detail="Ride already taken")
 
-	driver.is_online = 0
+    httpx.put(f"http://localhost:8002/accept_offline/{driver_id}")
+	
+    db.commit()
 
-	db.commit()
-
-	return {
-		"message":"Ride Accepted",
-		"Ride_id":ride_id,
-		"Driver_id":driver_id,
-	}
+    return {
+        "message": "Ride Accepted",
+        "Ride_id": ride_id,
+        "Driver_id": driver_id,
+    }
 

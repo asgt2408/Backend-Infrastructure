@@ -1,5 +1,5 @@
 from sqlalchemy import String, Integer, Column, Boolean, DateTime, Float
-from ride_service.database import Base
+from database import Base
 from datetime import datetime
 
 class Ride(Base):
