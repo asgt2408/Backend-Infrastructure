@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException, Depends
 from database import SessionLocal
 from models import Ride, Base
+import httpx
 from sqlalchemy.orm import Session
-#from driver_service.models import Driver
 from logger import logger
 
 router = APIRouter()
@@ -15,7 +15,7 @@ def get_db():
 		db.close()
 
 
-@router.post('/completes')
+@router.post('/')
 def ride_completed(ride_id:int,driver_id:int,db:Session = Depends(get_db)):
 
 	updated = db.query(Ride).filter(Ride.id==ride_id,
@@ -23,10 +23,7 @@ def ride_completed(ride_id:int,driver_id:int,db:Session = Depends(get_db)):
 		"status":"COMPLETED"
 		})
 
-	driver = db.query(Driver).filter(Driver.id==driver_id).first()
-
-	if driver:
-		driver.is_online = 1
+	httpx.put(f"http://localhost:8002/online/{driver_id}")
 
 	db.commit()
 

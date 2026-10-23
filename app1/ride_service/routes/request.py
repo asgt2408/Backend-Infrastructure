@@ -23,7 +23,7 @@ class RideModel(BaseModel):
 	pickup_lng : float
 
 
-@router.post("/request")
+@router.post("/")
 def req(data : RideModel, db:Session = Depends(get_db)):
 
 	ride = Ride(

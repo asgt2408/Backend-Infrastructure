@@ -14,7 +14,7 @@ def get_db():
 	finally:
 		db.close()
 
-@router.get("/start")
+@router.get("/")
 def started(ride_id:int, driver_id:int, db: Session = Depends(get_db)):
 
 	ride = db.query(Ride).filter(

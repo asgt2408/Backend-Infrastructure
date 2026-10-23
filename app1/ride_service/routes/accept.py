@@ -15,7 +15,7 @@ def get_db():
     finally:
         db.close()
 
-@router.get("/accept")
+@router.get("/")
 def extract(ride_id: int, driver_id: int, db: Session = Depends(get_db)):
     response = httpx.get(f"http://localhost:8002/status/{driver_id}")
 
